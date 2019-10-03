@@ -492,6 +492,27 @@ class RemoteMotion(SensorHm, Remote):
         return [1, 2]
 
 
+class HMModEm8(SensorHm, HelperEventRemote):
+    """HM-MOD-EM-8."""
+
+    def __init__(self, device_description, proxy, resolveparamsets=False):
+        super().__init__(device_description, proxy, resolveparamsets)
+
+        self.channels = list(range(1, 8))
+        self.binary_channels = []
+        # init metadata
+        for chan in self.channels:
+            if self._proxy.getParamset("%s:%i" % (self._ADDRESS, chan), "MASTER").get("CHANNEL_FUNCTION") == 2:
+                self.binary_channels.append(chan)
+        if self.binary_channels:
+            self.BINARYNODE.update({"STATE": self.binary_channels})
+
+
+    @property
+    def ELEMENT(self):
+        return self.channels
+
+
 class LuxSensor(SensorHm):
     """Sensor for messure LUX."""
 
@@ -953,4 +974,5 @@ DEVICETYPES = {
     "HB-UW-Sen-THPL-I": UniversalSensor,
     "HmIP-SWD": WaterIP,
     "HB-UNI-Sensor1": UniversalSensor,
+    "HM-MOD-EM-8": HMModEm8,
 }

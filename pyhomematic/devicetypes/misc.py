@@ -44,7 +44,7 @@ class Remote(HMEvent, HelperEventRemote, HelperActionPress, HelperRssiPeer):
             return [1, 2, 3, 4]
         if "PB-6" in self.TYPE or "WRC6" in self.TYPE:
             return [1, 2, 3, 4, 5, 6]
-        if "RC-8" in self.TYPE or "HM-MOD-EM-8" in self.TYPE:
+        if "RC-8" in self.TYPE:
             return [1, 2, 3, 4, 5, 6, 7, 8]
         if "RC-12" in self.TYPE:
             return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -123,7 +123,6 @@ DEVICETYPES = {
     "HM-PBI-X": Remote,
     "HM-Dis-WM55": Remote,
     "HM-Dis-EP-WM55": Remote,
-    "HM-MOD-EM-8": Remote,
     "RC-H": Remote,
     "BRC-H": Remote,
     "atent": Remote,
